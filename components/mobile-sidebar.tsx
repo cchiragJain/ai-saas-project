@@ -1,9 +1,18 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { useIsClient } from "usehooks-ts";
 import Sidebar from "./sidebar";
 
 const MobileSidebar = () => {
+  const isClient = useIsClient();
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <Sheet>
       <SheetTrigger>
