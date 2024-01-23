@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 // import { Progress } from "@/components/ui/progress";
 import { MAX_FREE_COUNTS } from "@/constants";
+import { useProModal } from "@/hooks/use-pro-modal";
 import { useIsClient } from "usehooks-ts";
 
 export const FreeCounter = ({
@@ -12,6 +13,7 @@ export const FreeCounter = ({
 }: {
   apiLimitCount: number;
 }) => {
+  const proModal = useProModal();
   const isClient = useIsClient();
 
   if (!isClient) {
@@ -32,7 +34,7 @@ export const FreeCounter = ({
             />
           </div>
           <Button
-            // onClick={proModal.onOpen}
+            onClick={proModal.onOpen}
             variant="premium"
             className="w-full"
           >

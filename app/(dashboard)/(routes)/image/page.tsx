@@ -14,6 +14,8 @@ import { Heading } from "@/components/heading";
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
+import { useProModal } from "@/hooks/use-pro-modal";
+
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -28,6 +30,8 @@ import { amountOptions, formSchema, resolutionOptions } from "./constants";
 
 const PhotoPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
+
   const [photos, setPhotos] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,7 +55,10 @@ const PhotoPage = () => {
 
       setPhotos(urls);
     } catch (error: any) {
-      console.log("Error Image", error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
+      // console.log("Error Image", error);
     } finally {
       router.refresh();
     }

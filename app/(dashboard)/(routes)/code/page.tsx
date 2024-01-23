@@ -21,8 +21,10 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 
+import { useProModal } from "@/hooks/use-pro-modal";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import { useState } from "react";
@@ -30,6 +32,7 @@ import { useState } from "react";
 // dont understand how the form is working but is present in shadcn docs
 const CodePage = () => {
   const router = useRouter();
+  const proModal = useProModal();
 
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -60,7 +63,9 @@ const CodePage = () => {
       // reset the form values
       form.reset();
     } catch (error: any) {
-      console.log(error);
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

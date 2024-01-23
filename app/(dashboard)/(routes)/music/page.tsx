@@ -11,6 +11,8 @@ import * as z from "zod";
 import { Empty } from "@/components/empty";
 import { Heading } from "@/components/heading";
 import { Loader } from "@/components/loader";
+import { useProModal } from "@/hooks/use-pro-modal";
+
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -19,6 +21,8 @@ import { formSchema } from "./constants";
 
 const MusicPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
+
   const [music, setMusic] = useState<string>();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,6 +44,9 @@ const MusicPage = () => {
       setMusic(response.data.audio);
       form.reset();
     } catch (error: any) {
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
