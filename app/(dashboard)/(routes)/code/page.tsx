@@ -135,7 +135,7 @@ const CodePage = () => {
                       const { children, className, node, ...rest } = props;
                       const match = /language-(\w+)/.exec(className || "");
                       return match ? (
-                        // taken from the documentation
+                        // taken from react markdown documentation
                         // showing error for icompatible types
                         // @ts-ignore
                         <SyntaxHighlighter
