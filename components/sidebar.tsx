@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Montserrat } from "next/font/google";
 import { usePathname } from "next/navigation";
+import { FreeCounter } from "./free-counter";
 
 const monsterrat = Montserrat({
   weight: "600",
@@ -27,6 +28,10 @@ interface FeatureRoutes {
   icon: LucideIcon;
   href: string;
   color?: string;
+}
+
+interface SidebarProps {
+  apiLimitCount: number;
 }
 
 const routes: FeatureRoutes[] = [
@@ -73,7 +78,7 @@ const routes: FeatureRoutes[] = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ apiLimitCount = 0 }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
@@ -107,6 +112,7 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
+      <FreeCounter apiLimitCount={apiLimitCount} />
     </div>
   );
 };
