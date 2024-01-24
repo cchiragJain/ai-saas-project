@@ -10,13 +10,19 @@ import { useIsClient } from "usehooks-ts";
 
 export const FreeCounter = ({
   apiLimitCount = 0,
+  isPro = false,
 }: {
   apiLimitCount: number;
+  isPro: boolean;
 }) => {
   const proModal = useProModal();
   const isClient = useIsClient();
 
   if (!isClient) {
+    return null;
+  }
+
+  if (isPro) {
     return null;
   }
 

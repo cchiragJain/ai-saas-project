@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import toast from "react-hot-toast";
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
 
 const PhotoPage = () => {
@@ -57,6 +58,8 @@ const PhotoPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error("Something went wrong");
       }
       // console.log("Error Image", error);
     } finally {
